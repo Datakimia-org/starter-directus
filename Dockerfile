@@ -4,4 +4,9 @@ FROM index.docker.io/directus/directus:${RESTACK_PRODUCT_VERSION}
 
 COPY --chown=node:node snapshot.yaml /directus/
 
-RUN npx directus schema apply /directus/snapshot.yaml
+COPY --chown=node:node  docker-entrypoint.sh /directus/docker-entrypoint.sh
+RUN chmod +x /directus/docker-entrypoint.sh
+
+ENTRYPOINT [ "/directus/docker-entrypoint.sh" ]
+
+
